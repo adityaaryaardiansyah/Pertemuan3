@@ -3,7 +3,8 @@ package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +13,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -29,9 +34,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingText(pengirim = "PENDI",
-                        isi = "Telah Menerima Dana Sebesar Rp.50.000",
-                        judul ="Transaksi DANA" )
+                    imageback(pengirim = "PENDI",
+                        isi = stringResource(R.string.HARTAKARUN),
+                        judul = stringResource(R.string.KANGTF))
                 }
             }
         }
@@ -42,7 +47,7 @@ class MainActivity : ComponentActivity() {
 fun GreetingText(pengirim: String, isi: String, judul: String, modifier: Modifier = Modifier) {
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color.Blue))
+    )
 
     Column (
         verticalArrangement = Arrangement.Top
@@ -56,7 +61,7 @@ fun GreetingText(pengirim: String, isi: String, judul: String, modifier: Modifie
         )
     }
     Column(
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxSize()
     ){
         Text(
             text =isi,
@@ -66,7 +71,7 @@ fun GreetingText(pengirim: String, isi: String, judul: String, modifier: Modifie
         )
     }
     Column (
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxSize()
     ) {
         Text(
             text =pengirim,
@@ -76,16 +81,30 @@ fun GreetingText(pengirim: String, isi: String, judul: String, modifier: Modifie
 
     }
 }
+@Composable
+fun imageback(pengirim: String, isi: String, judul: String, modifier: Modifier = Modifier){
+    val Gambar = painterResource(R.drawable.dana)
+    Box {
+        Image(
+            painter = Gambar,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            alpha = 0.5F,
+            contentScale = ContentScale.Crop
 
+        )
+        GreetingText(
+            isi = isi,
+            pengirim = pengirim,
+            judul = judul, modifier = Modifier.fillMaxSize())}
+}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
-        GreetingText(
-            pengirim = "PENDI",
-            isi = "Telah Menerima Dana Sebesar Rp.50.000",
-            judul = "Transaksi DANA"
-        )
+        imageback(pengirim = "PENDI",
+            isi = stringResource(R.string.HARTAKARUN),
+            judul = stringResource(R.string.KANGTF))
     }
 }

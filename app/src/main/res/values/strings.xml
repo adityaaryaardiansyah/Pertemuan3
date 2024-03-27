@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="HARTAKARUN">Telah Menerima Dana Sebesar Rp.50.000</string>
+    <string name="KANGTF">Transaksi DANA</string>
 </resources>
